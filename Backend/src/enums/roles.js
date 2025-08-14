@@ -1,10 +1,7 @@
-// enums/roles.js
-
-const ROLES = Object.freeze({
+export const ROLES = Object.freeze({
   DEVELOPER: 'Developer',
   HR: 'HR',
   DIRECTOR: 'Director',
   ADMIN: 'Admin'
 });
-
-module.exports = ROLES;
+export default ROLES;

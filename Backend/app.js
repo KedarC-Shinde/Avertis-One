@@ -1,23 +1,33 @@
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { errorHandler } from './src/middlewares/error.middleware.js';
 
-import express from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
+// Import route files
+import authRoutes from './src/routes/auth.routes.js';
+import leaveRoutes from './src/routes/leave.routes.js';
 
-const app = express()
+const app = express();
 
+// CORS setup
 app.use(
     cors({
         origin: process.env.CORS_ORIGIN,
         credentials: true
     })
-)
+);
 
-// common middleware
-app.use(express.json({limit: "16kb"}))
-app.use(express.urlencoded({extended: true, limit:"16kb"}))
-app.use(express.static("public"))
-app.use(cookieParser())
+// Common middleware
+app.use(express.json({ limit: '16kb' }));
+app.use(express.urlencoded({ extended: true, limit: '16kb' }));
+app.use(express.static('public'));
+app.use(cookieParser());
 
- app.use(errorHandler)
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/leaves', leaveRoutes);
 
-export { app }
+// Error handler
+app.use(errorHandler);
+
+export { app };
